@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!--Chart js-->
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            background-color: rgb(226, 226, 226);
+        }
 
-    <script srpt scr="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </style>
 </head>
 <body>
     <h1>Dashboard</h1>
-    
-    <div class "container">
-        <canvas id="Linechart"></canvas>
-
+    <div class="container">
+        <canvas id="lineChart" width="400" height="200"></canvas>
+        <canvas id="radarChart" width="400" height="200"></canvas>
     </div>
-    </div>
-     <canvas id="radarchart"></canvas>
-
-    </div>
-    </div>
+    <script src="dashboard.js"></script>
 </body>
-</scipt src="dashboard.js"></script>
 </html>
