@@ -14,9 +14,9 @@ class LineChart {
                 datasets: [{
                     label: "Monthly Data",
                     data: data.values,
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 2,
-                    fill: false
+                    borderColor: "rgba(0, 128, 0, 1)",
+                    backgroundColor: "rgba(0, 128, 0, 0.2)",
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -34,8 +34,10 @@ class LineChart {
         try {
             const response = await fetch(this.dataUrl);
             if (!response.ok) throw new Error(`Failed to load data: ${response.statusText}`);
+
             const data = await response.json();
             return data;
+
         } catch (error) {
             console.error("Error fetching data:", error);
             return null;
@@ -44,9 +46,16 @@ class LineChart {
 
     async init() {
         const data = await this.fetchData();
-        if (data) this.renderChart(data);
+        if (data) {
+            this.renderChart(data);
+        }
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const chart = new LineChart("LineChart", "linedata.json"); 
+    chart.init();
+});
 
 class RadarChart {
     constructor(canvasId, dataUrl) {
@@ -57,6 +66,7 @@ class RadarChart {
 
     renderChart(data) {
         const ctx = document.getElementById(this.canvasId).getContext("2d");
+
         this.chart = new Chart(ctx, {
             type: "radar",
             data: {
@@ -66,7 +76,9 @@ class RadarChart {
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: "top" },
+                    legend: {
+                        position: "top",
+                    },
                     title: {
                         display: true,
                         text: "Radar Chart"
@@ -87,6 +99,7 @@ class RadarChart {
         try {
             const response = await fetch(this.dataUrl);
             if (!response.ok) throw new Error(`Failed to load data: ${response.statusText}`);
+
             const data = await response.json();
             return data;
         } catch (error) {
@@ -102,9 +115,6 @@ class RadarChart {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const lineChart = new LineChart("lineChart", "linedata.json");
-    lineChart.init();
-
-    const radarChart = new RadarChart("radarChart", "radarData.json");
-    radarChart.init();
+    const chart = new RadarChart("radarChart", "radarData.json");
+    chart.init();
 });
